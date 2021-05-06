@@ -1,0 +1,19 @@
+{
+  "name": "visual-art",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": ".",
+  "hexo": {
+    "version": "4.2.1"
+  },
+  "dependencies": {
+   
+  },
+  "devDependencies": {
+    "hexo": "^4.2.1",
+    "hexo-deployer-git": "^2.1.0"
+  },
+  "scripts": {
+    "deploy": "hexo deploy"
+  }
+}

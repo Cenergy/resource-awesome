@@ -1,0 +1,619 @@
+{
+  "version": 8,
+  "name": "china",
+  "sources": {
+    "world": {
+      "type": "vector",
+      "scheme": "xyz",
+      "tiles": ["/map/mbview/world.mbtiles/{z}/{x}/{y}.pbf"],
+      "minzoom": 0,
+      "maxzoom": 7
+    },
+    "china": {
+      "type": "vector",
+      "scheme": "xyz",
+      "tiles": ["/map/mbview/china.mbtiles/{z}/{x}/{y}.pbf"],
+      "maxzoom": 14
+    }
+  },
+  "sprite": "/map/api/projectdata/mapbox_style/sprites/sprite",
+  "glyphs": "/map/api/projectdata/mapbox_style/fonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {},
+      "paint": {
+        "background-color": "hsl(216, 83%, 20%)"
+      }
+    },
+    {
+      "id": "world-country-polygon",
+      "type": "fill",
+      "source": "world",
+      "source-layer": "world_country_polygon",
+      "layout": {},
+      "paint": {
+        "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          7,
+          "hsla(216, 22%, 10%,1.0)",
+          8,
+          "hsla(216, 22%, 10%,0.0)"
+        ]
+      }
+    },
+    {
+      "id": "china-xian-fill",
+      "type": "fill",
+      "source": "world",
+      "source-layer": "china_xian_polygon",
+      "layout": {},
+      "paint": {
+        "fill-color": "hsl(216, 22%, 10%)"
+      }
+    },
+    {
+      "id": "china-landuse-polygon",
+      "type": "fill",
+      "source": "china",
+      "source-layer": "china_landuse_polygon",
+      "minzoom": 10,
+      "filter": ["match", ["get", "fclass"], ["park"], true, false],
+      "layout": {},
+      "paint": {
+        "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          "hsla(115, 100%, 13%, 0.0)",
+          11,
+          "hsla(115, 100%, 13%, 0.2)"
+        ]
+      }
+    },
+    {
+      "id": "road-motorway",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 6,
+      "filter": ["match", ["get", "fclass"], ["motorway"], true, false],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          6,
+          "hsla(218, 28%, 14%, 0)",
+          7,
+          "hsla(218, 28%, 14%, 1.0)"
+        ],
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [5, 0.75],
+            [18, 32]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-motorway-bg",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 6,
+      "filter": ["match", ["get", "fclass"], ["motorway"], true, false],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          6,
+          "hsla(218, 28%, 14%, 0)",
+          7,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [10, 0.5],
+            [16, 2]
+          ]
+        },
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [5, 0.5],
+            [18, 32]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-tertiary",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 10,
+      "filter": ["match", ["get", "fclass"], ["tertiary"], true, false],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [8.5, 0.5],
+            [10, 0.75],
+            [18, 26]
+          ]
+        },
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          "hsla(218, 28%, 14%, 0)",
+          11,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-opacity": {
+          "base": 1.2,
+          "stops": [
+            [5, 0],
+            [5.5, 1]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-tertiary-bg",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 10,
+      "filter": ["match", ["get", "fclass"], ["tertiary"], true, false],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.2,
+          "stops": [
+            [10, 0.75],
+            [18, 2]
+          ]
+        },
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          "hsla(218, 28%, 14%, 0)",
+          11,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [10, 0.5],
+            [11, 0.75],
+            [18, 26]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-secondary",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 6,
+      "filter": ["match", ["get", "fclass"], ["secondary"], true, false],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          6,
+          "hsla(218, 28%, 14%, 0)",
+          7,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [8.5, 0.5],
+            [10, 0.75],
+            [18, 26]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-secondary-bg",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 6,
+      "filter": ["match", ["get", "fclass"], ["secondary"], true, false],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.2,
+          "stops": [
+            [10, 0.75],
+            [18, 2]
+          ]
+        },
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          6,
+          "hsla(218, 28%, 14%, 0)",
+          7,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [8.5, 0.5],
+            [10, 0.75],
+            [18, 26]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-primary",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 6,
+      "filter": ["match", ["get", "fclass"], ["primary"], true, false],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          6,
+          "hsla(218, 28%, 14%, 0)",
+          7,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [5, 0.2],
+            [18, 32]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-primary-bg",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 6,
+      "filter": ["match", ["get", "fclass"], ["primary"], true, false],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [10, 1],
+            [16, 2]
+          ]
+        },
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          6,
+          "hsla(218, 28%, 14%, 0)",
+          7,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [5, 0.75],
+            [18, 32]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-residential",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 10,
+      "filter": ["match", ["get", "fclass"], ["residential"], true, false],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          "hsla(218, 28%, 14%, 0)",
+          11,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [12.5, 0.5],
+            [14, 2],
+            [18, 18]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-residential-bg",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 10,
+      "filter": ["match", ["get", "fclass"], ["residential"], true, false],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          "hsla(218, 28%, 14%, 0)",
+          11,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [12, 0.75],
+            [20, 2]
+          ]
+        },
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [13, 0],
+            [14, 2],
+            [18, 18]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-path",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 10,
+      "filter": ["match", ["get", "fclass"], ["path"], true, false],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [15, 1],
+            [18, 4]
+          ]
+        },
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          "hsla(218, 28%, 14%, 0)",
+          11,
+          "hsla(218, 28%, 14%,1.0)"
+        ],
+        "line-dasharray": {
+          "base": 1,
+          "stops": [
+            [14, [1, 0]],
+            [15, [1.75, 1]],
+            [16, [1, 0.75]],
+            [17, [1, 0.5]]
+          ]
+        }
+      }
+    },
+    {
+      "id": "road-path-bg",
+      "type": "line",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 10,
+      "filter": ["match", ["get", "fclass"], ["path"], true, false],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [15, 2],
+            [18, 7]
+          ]
+        },
+        "line-dasharray": [1, 0],
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          "hsla(218, 28%, 14%, 0)",
+          11,
+          "hsla(218, 28%, 14%,1.0)"
+        ]
+      }
+    },
+    {
+      "id": "road-symbol",
+      "type": "symbol",
+      "source": "china",
+      "source-layer": "china_roads_line",
+      "minzoom": 10,
+      "filter": [
+        "match",
+        ["get", "fclass"],
+        ["primary", "residential", "path", "tertiary", "secondary", "motorway"],
+        true,
+        false
+      ],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [13, 14],
+            [20, 18]
+          ]
+        },
+        "text-rotation-alignment": "map",
+        "text-padding": 1,
+        "text-letter-spacing": 0.01,
+        "symbol-placement": "line",
+        "text-pitch-alignment": "map",
+        "text-font": ["microsoftyahei"]
+      },
+      "paint": {
+        "text-color": "#24538a"
+      }
+    },
+    {
+      "id": "china-xian-line",
+      "type": "line",
+      "source": "world",
+      "source-layer": "china_xian_line",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          6,
+          "rgba(255,255,255,0.0)",
+          8,
+          "rgba(255,255,255,0.1)"
+        ]
+      }
+    },
+    {
+      "id": "world-country-line",
+      "type": "line",
+      "source": "world",
+      "source-layer": "world_country_line",
+      "layout": {},
+      "paint": {
+        "line-color": "rgba(255,255,255,0.2)"
+      }
+    },
+    {
+      "id": "china-province-line",
+      "type": "line",
+      "source": "world",
+      "source-layer": "china_province_line",
+      "layout": {},
+      "paint": {
+        "line-color": "rgba(255,255,255,0.2)"
+      }
+    },
+    {
+      "id": "china-xianname-point",
+      "type": "symbol",
+      "source": "world",
+      "source-layer": "china_xianname_point",
+      "minzoom": 6,
+      "layout": {
+        "text-field": ["to-string", ["get", "NAME"]],
+        "text-font": ["microsoftyahei"],
+        "text-size": 18
+      },
+      "paint": {
+        "text-color": "hsl(219, 82%, 43%)"
+      }
+    },
+    {
+      "id": "china-provincialcapital-point",
+      "type": "symbol",
+      "source": "world",
+      "source-layer": "china_provincialcapital_point",
+      "minzoom": 1,
+      "layout": {
+        "text-field": ["to-string", ["get", "NAME"]],
+        "text-font": ["microsoftyahei"],
+        "text-size": 18
+      },
+      "paint": {
+        "text-color": "rgb(255,255,255)"
+      }
+    },
+    {
+      "id": "world-countryname-point",
+      "type": "symbol",
+      "source": "world",
+      "source-layer": "world_countryname_point",
+      "maxzoom": 5,
+      "layout": {
+        "text-field": ["to-string", ["get", "TextObject"]],
+        "text-size": 22,
+        "text-font": ["microsoftyahei"]
+      },
+      "paint": {
+        "text-color": "hsl(0, 10%, 97%)"
+      }
+    }
+  ],
+  "otherLayers": [],
+  "created": "2020-06-18T03:04:19.450Z",
+  "id": "ckbk7aig30h4r1ik4kzx4d2na",
+  "modified": "2020-06-30T10:11:42.836Z",
+  "owner": "472542625",
+  "visibility": "public",
+  "draft": false
+}

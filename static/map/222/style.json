@@ -1,0 +1,1050 @@
+{
+  "version": 8,
+  "name": "v3-black-2",
+  "sources": {
+    "map": {
+      "type": "vector",
+      "scheme": "tms",
+      "tiles": [
+        "/map/api/geoserver/gwc/service/tms/1.0.0/chinaosm:chinaOSM@EPSG:900913@pbf/{z}/{x}/{y}.pbf"
+      ]
+    }
+  },
+  "sprite": "/map/api/projectdata/mapbox_style/sprites/sprite",
+  "glyphs": "/map/api/projectdata/mapbox_style/fonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {},
+      "paint": {
+        "background-color": "hsl(216, 22%, 10%)"
+      },
+      "interactive": true
+    },
+    {
+      "id": "landuse",
+      "type": "fill",
+      "metadata": {
+        "mapbox:featureComponent": "land-and-water",
+        "mapbox:group": "Land & water, land"
+      },
+      "source": "map",
+      "source-layer": "gis_osm_pois_a_free_1",
+      "minzoom": 12,
+      "filter": [
+        "match",
+        [
+          "get",
+          "fclass"
+        ],
+        [
+          "park",
+          "airport",
+          "glacier",
+          "pitch",
+          "sand"
+        ],
+        true,
+        "school",
+        true,
+        "hospital",
+        true,
+        "parking",
+        [
+          "step",
+          [
+            "zoom"
+          ],
+          false,
+          15,
+          true
+        ],
+        false
+      ],
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          15,
+          [
+            "match",
+            [
+              "get",
+              "fclass"
+            ],
+            "airport",
+            "hsla(230, 100%, 0%, 0.68)",
+            "glacier",
+            "hsla(197, 81%, 21%, 0.54)",
+            "hospital",
+            "hsla(252, 100%, 8%, 0.48)",
+            "school",
+            "hsla(128, 100%, 13%, 0.22)",
+            "park",
+            "hsla(215, 23%, 26%, 0.27)",
+            "hsla(216, 100%, 3%, 0.34)"
+          ],
+          16,
+          [
+            "match",
+            [
+              "get",
+              "fclass"
+            ],
+            "airport",
+            "hsl(230, 100%, 18%)",
+            "glacier",
+            "hsla(197, 67%, 20%, 0.12)",
+            "hospital",
+            "hsla(252, 100%, 14%, 0.33)",
+            "school",
+            "hsla(124, 100%, 10%, 0.16)",
+            "park",
+            "hsla(215, 23%, 26%, 0.27)",
+            "hsla(216, 100%, 8%, 0.42)"
+          ]
+        ],
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          5,
+          0,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "id": "national-park",
+      "type": "fill",
+      "source": "map",
+      "source-layer": "gis_osm_landuse_a_free_1",
+      "minzoom": 5,
+      "filter": [
+        "==",
+        "fclass",
+        "park"
+      ],
+      "layout": {},
+      "paint": {
+        "fill-color": "hsla(115, 100%, 13%, 0.21)",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          5,
+          0,
+          6,
+          0,
+          10,
+          0.17
+        ]
+      }
+    },
+    {
+      "id": "bridge-motorway",
+      "note": "路网-高速",
+      "type": "line",
+      "source": "map",
+      "minzoom": 10,
+      "source-layer": "gis_osm_roads_free_1",
+      "filter": [
+        "==",
+        "fclass",
+        "motorway"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)"
+      },
+      "interactive": true
+    },
+    {
+      "id": "bridge-motorway-case",
+      "type": "line",
+      "note": "路网-高速-线框",
+      "source": "map",
+      "minzoom": 10,
+      "source-layer": "gis_osm_roads_free_1",
+      "filter": [
+        "==",
+        "fclass",
+        "motorway"
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              10,
+              0.5
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.5
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-secondary-tertiary-case3",
+      "type": "line",
+      "note": "路网-三级公路-边框",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "tertiary"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.2,
+          "stops": [
+            [
+              10,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              8.5,
+              0.5
+            ],
+            [
+              10,
+              0.75
+            ],
+            [
+              18,
+              26
+            ]
+          ]
+        },
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              9.99,
+              0
+            ],
+            [
+              10,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-secondary-tertiary3",
+      "type": "line",
+      "note": "路网-三级公路",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "tertiary"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              8.5,
+              0.5
+            ],
+            [
+              10,
+              0.75
+            ],
+            [
+              18,
+              26
+            ]
+          ]
+        },
+        "line-color": {
+          "base": 1,
+          "stops": [
+            [
+              5,
+              "hsl(218, 28%, 14%)"
+            ],
+            [
+              8,
+              "hsl(218, 28%, 14%)"
+            ]
+          ]
+        },
+        "line-opacity": {
+          "base": 1.2,
+          "stops": [
+            [
+              5,
+              0
+            ],
+            [
+              5.5,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-secondary-tertiary-case",
+      "type": "line",
+      "note": "路网-二级公路-线框",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "secondary"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.2,
+          "stops": [
+            [
+              10,
+              0.75
+            ],
+            [
+              18,
+              2
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              8.5,
+              0.5
+            ],
+            [
+              10,
+              0.75
+            ],
+            [
+              18,
+              26
+            ]
+          ]
+        },
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              9.99,
+              0
+            ],
+            [
+              10,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-secondary-tertiary",
+      "type": "line",
+      "note": "路网-二级公路",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "secondary"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              8.5,
+              0.5
+            ],
+            [
+              10,
+              0.75
+            ],
+            [
+              18,
+              26
+            ]
+          ]
+        },
+        "line-color": {
+          "base": 1,
+          "stops": [
+            [
+              5,
+              "hsl(218, 28%, 14%)"
+            ],
+            [
+              8,
+              "hsl(218, 28%, 14%)"
+            ]
+          ]
+        },
+        "line-opacity": {
+          "base": 1.2,
+          "stops": [
+            [
+              5,
+              0
+            ],
+            [
+              5.5,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-primary",
+      "type": "line",
+      "note": "路网-主干道",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "primary"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.2
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        },
+        "line-color": {
+          "base": 1,
+          "stops": [
+            [
+              5,
+              "hsl(218, 28%, 14%)"
+            ],
+            [
+              7,
+              "hsl(218, 28%, 14%)"
+            ]
+          ]
+        },
+        "line-opacity": 1
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-primary-case",
+      "type": "line",
+      "note": "路网-主干道-线框",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "primary"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              10,
+              1
+            ],
+            [
+              16,
+              2
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              5,
+              0.75
+            ],
+            [
+              18,
+              32
+            ]
+          ]
+        },
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              9.99,
+              0
+            ],
+            [
+              10,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-street-case",
+      "type": "line",
+      "note": "路网-住宅区道路-线框",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "residential"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              12,
+              0.75
+            ],
+            [
+              20,
+              2
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-gap-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              13,
+              0
+            ],
+            [
+              14,
+              2
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        },
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13.99,
+              0
+            ],
+            [
+              14,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-street",
+      "type": "line",
+      "note": "路网-住宅区道路",
+      "metadata": {
+        "mapbox:group": "1444855786460.0557"
+      },
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "residential"
+      ],
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              12.5,
+              0.5
+            ],
+            [
+              14,
+              2
+            ],
+            [
+              18,
+              18
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              13.99,
+              0
+            ],
+            [
+              14,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-path-bg",
+      "type": "line",
+      "note": "路网-小径-",
+      "metadata": {
+        "mapbox:group": "1444855786460.0557"
+      },
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "path"
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              15,
+              2
+            ],
+            [
+              18,
+              7
+            ]
+          ]
+        },
+        "line-dasharray": [
+          1,
+          0
+        ],
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-blur": 0,
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              0
+            ],
+            [
+              14.25,
+              0.75
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-path",
+      "type": "line",
+      "note": "路网-小径",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 10,
+      "filter": [
+        "==",
+        "fclass",
+        "path"
+      ],
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-width": {
+          "base": 1.5,
+          "stops": [
+            [
+              15,
+              1
+            ],
+            [
+              18,
+              4
+            ]
+          ]
+        },
+        "line-color": "hsl(218, 28%, 14%)",
+        "line-dasharray": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              [
+                1,
+                0
+              ]
+            ],
+            [
+              15,
+              [
+                1.75,
+                1
+              ]
+            ],
+            [
+              16,
+              [
+                1,
+                0.75
+              ]
+            ],
+            [
+              17,
+              [
+                1,
+                0.5
+              ]
+            ]
+          ]
+        },
+        "line-opacity": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              0
+            ],
+            [
+              14.25,
+              1
+            ]
+          ]
+        }
+      },
+      "interactive": true
+    },
+    {
+      "id": "road-label-large",
+      "type": "symbol",
+      "note": "路网-标注 ",
+      "source": "map",
+      "source-layer": "gis_osm_roads_free_1",
+      "minzoom": 13,
+      "filter": [
+        "in",
+        "fclass",
+        "motorway",
+        "primary",
+        "secondary",
+        "tertiary",
+        "path",
+        "residential"
+      ],
+      "layout": {
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              13,
+              14
+            ],
+            [
+              20,
+              18
+            ]
+          ]
+        },
+        "symbol-spacing": 250,
+        "text-font": [
+          "microsoftyahei"
+        ],
+        "symbol-placement": "line",
+        "text-padding": 1,
+        "text-rotation-alignment": "map",
+
+        "text-field": "{name}",
+        "text-letter-spacing": 0.01
+      },
+      "paint": {
+        "text-color": "#24538a"
+      },
+      "interactive": true
+    },
+    {
+      "id": "place-village",
+      "note": "place-标注-村庄",
+      "type": "symbol",
+      "source": "map",
+      "source-layer": "gis_osm_places_free_1",
+      "minzoom": 15,
+      "maxzoom": 20,
+      "filter": [
+        "==",
+        "fclass",
+        "village"
+      ],
+      "layout": {
+        "text-field": "{name}",
+        "text-font": [
+          "microsoftyahei"
+        ],
+        "text-max-width": 7,
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              11.5
+            ],
+            [
+              20,
+              18
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#4a79ba"
+      },
+      "interactive": true
+    },
+    {
+      "id": "place-suburb",
+      "type": "symbol",
+      "note": "place-标注-郊区",
+      "source": "map",
+      "source-layer": "gis_osm_places_free_1",
+      "minzoom": 15,
+      "maxzoom": 20,
+      "filter": [
+        "==",
+        "fclass",
+        "suburb"
+      ],
+      "layout": {
+        "text-field": "{name}",
+        "text-transform": "uppercase",
+        "text-font": [
+          "microsoftyahei"
+        ],
+        "text-letter-spacing": 0.15,
+        "text-max-width": 7,
+        "text-padding": 3,
+        "text-size": {
+          "base": 1,
+          "stops": [
+            [
+              14,
+              11
+            ],
+            [
+              20,
+              18
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#4a79ba"
+      },
+      "interactive": true
+    },
+    {
+      "id": "place-city-md-s",
+      "type": "symbol",
+      "note": "place-标注-城市",
+      "source": "map",
+      "source-layer": "gis_osm_places_free_1",
+      "minzoom": 13,
+      "maxzoom": 20,
+      "filter": [
+        "==",
+        "fclass",
+        "city"
+      ],
+      "layout": {
+        "text-field": "{name}",
+        "text-font": [
+          "microsoftyahei"
+        ],
+        "text-size": {
+          "base": 0.9,
+          "stops": [
+            [
+              13,
+              16
+            ],
+            [
+              20,
+              22
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#4a79ba"
+      },
+      "interactive": true
+    },
+    {
+      "id": "china_provincename_point",
+      "type": "symbol",
+      "note": "place-标注-省名",
+      "source": "map",
+      "source-layer": "china_provincename_point",
+      "minzoom": 3,
+      "maxzoom": 13,
+      "layout": {
+        "text-field": "{textobject}",
+        "text-font": [
+          "microsoftyahei"
+        ],
+        "text-size": {
+          "base": 0.9,
+          "stops": [
+            [
+              3,
+              18
+            ],
+            [
+              13,
+              22
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#4a79ba"
+      },
+      "interactive": true
+    }
+  ]
+}

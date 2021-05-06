@@ -1,0 +1,9 @@
+# vue deployer
+public_dir: static
+
+deploy:
+  type: git
+  repo:
+    aigisss:
+      url: root@aigisss:/home/git/resource-awesome
+      branch: master
